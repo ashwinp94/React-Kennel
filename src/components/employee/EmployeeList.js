@@ -1,5 +1,8 @@
 import React, { Component } from 'react'
-class EmployeeList extends Component {
+
+
+
+export default class EmployeeList extends Component {
 
 
     render() {
@@ -7,8 +10,13 @@ class EmployeeList extends Component {
             <section className="employees">
             {
                 this.props.employees.map(employee =>
-                    <div key={employee.id}>
+                    <div key={employee.id} className="card">
+                    <div className = "class-body">
+                    <h5 className = "card-title">
                         {employee.name}
+                        <a href="#"onClick = {() => this.props.deleteEmployee(employee.id)} className="card-link">You're Fired</a>
+                    </h5>
+                    </div>
                     </div>
                 )
             }
@@ -16,5 +24,3 @@ class EmployeeList extends Component {
         )
     }
 }
-
-export default EmployeeList
