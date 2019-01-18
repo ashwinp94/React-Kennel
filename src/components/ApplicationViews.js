@@ -8,10 +8,10 @@ import OwnersList from './owners/OwnersList'
 
 export default class ApplicationViews extends Component {
     state = {
-        // locations:[],
-        // animals: [],
-        // employees: [],
-        // owners: []
+        locations:[],
+        animals: [],
+        employees: [],
+        owners: []
     }
 
     componentDidMount() {
@@ -29,8 +29,22 @@ export default class ApplicationViews extends Component {
             .then(()=> fetch("http://localhost:5002/locations")
             .then(r => r.json()))
             .then(locations => newState.locations = locations)
-            .then(()=> this.setState(newState))}
-        //.then(animalData => this.setState({animals: animalData})
+            .then(()=> this.setState(newState))
+            //.then(animalData => this.setState({animals: animalData})
+        }
+        deleteAnimal = id => {
+            return fetch(`http://localhost:5002/animals/${id}`, {
+                method: "DELETE"
+            })
+            .then(e => e.json())
+            .then(() => fetch(`http://localhost:5002/animals`))
+            .then(e => e.json())
+            .then(animals => this.setState({
+                animals: animals
+            })
+          )
+        }
+
 
 
     render() {
@@ -40,7 +54,7 @@ export default class ApplicationViews extends Component {
                     return <LocationList locations={this.state.locations} />
                 }} />
                 <Route exact path="/animals" render={(props) => {
-                    return <AnimalList animals={this.state.animals} />
+                    return <AnimalList deleteAnimal={this.deleteAnimal} animals={this.state.animals} />
                 }} />
                 <Route exact path="/employees" render={(props) => {
                     return <EmployeeList employees={this.state.employees} />
