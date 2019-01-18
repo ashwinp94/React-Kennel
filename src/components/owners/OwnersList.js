@@ -9,7 +9,7 @@ export default class OwnerList extends Component {
                     <div key={owner.id} className="card">
                     <div className = "class-body">
                     <h5 className = "card-title">
-                        {owner.name}
+                        {owner.name + ":" + owner.phone}
                         <a href="#"onClick = {() => this.props.deleteOwner(owner.id)} className="card-link">Delete</a>
                     </h5>
                     </div>
