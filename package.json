@@ -23,5 +23,18 @@
     "not dead",
     "not ie <= 11",
     "not op_mini all"
-  ]
+  ],
+  "description": "This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).",
+  "main": "index.js",
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ashwinp94/React-chp1-and-2-Exercises.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ashwinp94/React-chp1-and-2-Exercises/issues"
+  },
+  "homepage": "https://github.com/ashwinp94/React-chp1-and-2-Exercises#readme"
 }
