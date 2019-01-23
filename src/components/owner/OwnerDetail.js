@@ -9,7 +9,7 @@ export default class OwnerDetail extends Component {
             user clicked on by looking at the `this.props.animals`
             collection that was passed down from ApplicationViews
         */
-        const owner = this.props.owners.find(a => a.id === parseInt(this.props.match.params.ownerId)) || {}
+        const owner = this.props.owners.find(o => o.id === parseInt(this.props.match.params.ownerId)) || {}
 
         return (
             <section className="owner">
@@ -17,10 +17,11 @@ export default class OwnerDetail extends Component {
                     <div className="card-body">
                         <h4 className="card-title">
                             {owner.name}
+                            {owner.phone}
                         </h4>
                         <a href="#"
                             onClick={() => this.props.deleteOwner(owner.id)
-                                            .then(() => this.props.history.push("/owner"))}
+                                            .then(() => this.props.history.push("/owners"))}
                             className="card-link">Delete</a>
                     </div>
                 </div>

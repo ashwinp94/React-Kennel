@@ -1,12 +1,10 @@
 import { Route } from 'react-router-dom'
 import React, { Component } from "react"
-import AnimalManager from "../modules/AnimalManager"
-import EmployeeManager from '../modules/EmployeeManager';
-import OwnerManager from '../modules/OwnerManager';
-import LocationManager from '../modules/LocationManager';
+import APIManager from "../modules/APIManager"
 import AnimalDetail from './animal/AnimalDetail'
 import EmployeeDetail from './employee/EmployeeDetail'
 import OwnerDetail from './owner/OwnerDetail'
+import LocationDetail from './location/LocationDetail'
 import OwnerList from './owner/OwnersList';
 import AnimalList from './animal/AnimalList'
 import EmployeeList from './employee/EmployeeList'
@@ -16,87 +14,57 @@ import LocationList from './location/LocationList'
 
 
 export default class ApplicationViews extends Component {
-    state = {
+    constructor(props)  {
+        super(props);
+        this.state = {
+
         locations:[],
         animals: [],
         employees: [],
         owners: []
+        }
+        this.deleteAnimal = this.deleteAnimal.bind(this);
+        this.deleteEmployee = this.deleteEmployee.bind(this);
+        this.deleteOwner = this.deleteOwner.bind(this)
     }
 
-    deleteAnimal = id => {
-        return fetch(`http://localhost:5002/animals/${id}`, {
-            method: "DELETE"
-        })
-        .then(e => e.json())
-        .then(() => fetch(`http://localhost:5002/animals`))
-        .then(e => e.json())
-        .then(animals => this.setState({
-            animals: animals
-            })
-            )
+        deleteAnimal = id => {
+        APIManager.connectToData({dataSet: 'animals', fetchType: 'DELETE', deleteId: id,})
+        .then(()=> APIManager.connectToData({dataSet: 'animals', fetchType: 'GET', embeditem:""}))
+        .then(animals=> {this.setState({animals:animals})})
         }
 
         deleteEmployee = id => {
-            return fetch(`http://localhost:5002/employees/${id}`, {
-                method: "DELETE"
-            })
-            .then(e => e.json())
-            .then(() => fetch(`http://localhost:5002/employees`))
-            .then(e => e.json())
-            .then(employees => this.setState({
-                employees: employees
-            })
-            )
+        APIManager.connectToData({dataSet: 'employees', fetchType: 'DELETE', deleteId: id,})
+        .then(()=> APIManager.connectToData({dataSet: 'employees', fetchType: 'GET', embeditem:""}))
+        .then(employees=> {this.setState({employees:employees})})
         }
 
         deleteOwner = id => {
-            return fetch(`http://localhost:5002/owners/${id}`, {
-                method: "DELETE"
-            })
-            .then(e => e.json())
-            .then(() => fetch(`http://localhost:5002/owners`))
-            .then(e => e.json())
-            .then(owners => this.setState({
-                owners: owners
-            })
-            )
-        }
-
-        componentDidMount() {
-            const newState = {}
-
-                LocationManager.getAll().then(allLocations=>{
-                    this.setState({
-                        locations: allLocations
-                    })
-                })
-
-                OwnerManager.getAll().then(allOwners =>{
-                    this.setState({
-                        owners:allOwners
-                    })
-                })
-
-                EmployeeManager.getAll().then(allEmployees=>{
-                    this.setState({
-                        employees: allEmployees
-                    })
-                })
-
-                AnimalManager.getAll().then(allAnimals => {
-                    this.setState({
-                        animals: allAnimals
-                    })
-                })
+        APIManager.connectToData({dataSet: 'owners', fetchType: 'DELETE', deleteId: id,})
+        .then(()=> APIManager.connectToData({dataSet: 'owners', fetchType: 'GET', embeditem:""}))
+        .then(owners => {this.setState({owners:owners})})
             }
 
-
+        componentDidMount() {
+            APIManager.connectToData({dataSet: 'owners', fetchType: 'GET', embedItem: ""})
+            .then(owners => {this.setState({owners: owners})})
+            .then(() => APIManager.connectToData({dataSet: 'animals', fetchType: 'GET', embedItem: ""}))
+            .then(animals => {this.setState({animals: animals})})
+            .then(()=> APIManager.connectToData({dataSet: 'employees', fetchType: 'GET', embedItem: ""}))
+            .then(employees => {this.setState({employees:employees})})
+            .then(()=> APIManager.connectToData({dataSet: 'locations', fetchType: 'GET', embedItem: ""}))
+            .then(locations => {this.setState({locations:locations})})
+        }
 
     render() {
         return (
             <React.Fragment>
                 <Route exact path="/locations" render={(props) => {
                     return <LocationList locations={this.state.locations} />
+                }} />
+                <Route  path="/locations/:locationId(\d+)" render={(props) => {
+                    return (<LocationDetail {...props} locations={this.state.locations} />)
                 }} />
 
                 <Route exact path="/owners" render={(props) => {
