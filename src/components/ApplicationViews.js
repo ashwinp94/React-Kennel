@@ -1,6 +1,6 @@
-import { Route } from 'react-router-dom'
+import { Route, Redirect } from 'react-router-dom'
 import React, { Component } from "react"
-import APIManager from "../modules/APIManager"
+import APIManager from "../modules/AnimalManager"
 import AnimalDetail from './animal/AnimalDetail'
 import EmployeeDetail from './employee/EmployeeDetail'
 import OwnerDetail from './owner/OwnerDetail'
@@ -10,65 +10,56 @@ import AnimalList from './animal/AnimalList'
 import EmployeeList from './employee/EmployeeList'
 import LocationList from './location/LocationList'
 import AnimalForm from './animal/Animalform'
+import Login from './authentication/Login'
+
 
 
 
 
 export default class ApplicationViews extends Component {
-    constructor(props)  {
-        super(props);
-        this.state = {
+    isAuthenticated = () => sessionStorage.getItem("credentials") !== null
+
+    state = {
 
         locations:[],
         animals: [],
         employees: [],
         owners: []
-
-    }
-    this.deleteAnimal = this.deleteAnimal.bind(this);
-    this.deleteEmployee = this.deleteEmployee.bind(this);
-    this.deleteOwner = this.deleteOwner.bind(this)
-    this.addAnimal = this.addAnimal.bind(this)
-}
-
-        addAnimal(animal) {
-        APIManager.connectToData({dataSet: 'animals', fetchType: 'POST', dataBaseObject: animal,})
-        .then(()=> APIManager.connectToData({dataSet: 'animals', fetchType: 'GET', embeditem:""}))
-        .then(animals=> {this.setState({animals:animals})})
         }
+            componentDidMount() {
+                // Example code. Make this fit into how you have written yours.
+                AnimalManager.getAll().then(allAnimals => {
+                  this.setState({
+                    animals: allAnimals
+                  });
+                });
 
-        deleteAnimal = id => {
-        APIManager.connectToData({dataSet: 'animals', fetchType: 'DELETE', deleteId: id,})
-        .then(()=> APIManager.connectToData({dataSet: 'animals', fetchType: 'GET', embeditem:""}))
-        .then(animals=> {this.setState({animals:animals})})
-        }
+                LocationManager.getAll().then(allLocations => {
+                  this.setState({
+                    locations: allLocations
+                  });
+                });
 
-        deleteEmployee = id => {
-        APIManager.connectToData({dataSet: 'employees', fetchType: 'DELETE', deleteId: id,})
-        .then(()=> APIManager.connectToData({dataSet: 'employees', fetchType: 'GET', embeditem:""}))
-        .then(employees=> {this.setState({employees:employees})})
-        }
+                EmployeeManager.getAll().then(allEmployees => {
+                  this.setState({
+                    employees: allEmployees
+                  });
+                });
 
-        deleteOwner = id => {
-        APIManager.connectToData({dataSet: 'owners', fetchType: 'DELETE', deleteId: id,})
-        .then(()=> APIManager.connectToData({dataSet: 'owners', fetchType: 'GET', embeditem:""}))
-        .then(owners => {this.setState({owners:owners})})
-            }
-
-        componentDidMount() {
-            APIManager.connectToData({dataSet: 'owners', fetchType: 'GET', embedItem: ""})
-            .then(owners => {this.setState({owners: owners})})
-            .then(() => APIManager.connectToData({dataSet: 'animals', fetchType: 'GET', embedItem: ""}))
-            .then(animals => {this.setState({animals: animals})})
-            .then(()=> APIManager.connectToData({dataSet: 'employees', fetchType: 'GET', embedItem: ""}))
-            .then(employees => {this.setState({employees:employees})})
-            .then(()=> APIManager.connectToData({dataSet: 'locations', fetchType: 'GET', embedItem: ""}))
-            .then(locations => {this.setState({locations:locations})})
-        }
+                OwnerManager.getAll().then(allOwners => {
+                  this.setState({
+                    owners: allOwners
+                  });
+                });
+              }
 
     render() {
         return (
             <React.Fragment>
+                {/* login */}
+
+                <Route path="/login" component={Login} />
+
                 {/* locations */}
 
                 <Route exact path="/locations" render={(props) => {
@@ -89,12 +80,19 @@ export default class ApplicationViews extends Component {
 
                 {/* employees */}
 
-                <Route exact path="/employees" render={(props) => {
-                    return <EmployeeList employees={this.state.employees} />
-                }} />
+                <Route exact path="/employees" render={props => {
+                    if (this.isAuthenticated()) {
+                    return <EmployeeList deleteEmployee={this.deleteEmployee}
+                    employees={this.state.employees} />
+                        } else {
+                            return <Redirect to="/login" />
+                        }
+                    }} />
+
                 <Route  path="/employees/:employeeId(\d+)" render={(props) => {
                     return <EmployeeDetail {...props} deleteEmployee={this.deleteEmployee} employees={this.state.employees} />
                 }} />
+
 
                 {/* animals */}
 

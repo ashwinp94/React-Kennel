@@ -1,6 +1,7 @@
 import React, { Component } from "react"
 import "./Animal.css"
 import dog from "./DogIcon.png"
+import Redirect from "react-router-dom"
 
 
 export default class AnimalDetail extends Component {
@@ -24,7 +25,7 @@ export default class AnimalDetail extends Component {
                         <h6 className="card-title">{animal.breed}</h6>
                         <a href="#"
                             onClick={() => this.props.deleteAnimal(animal.id)
-                                            .then(() => this.props.history.push("/animals"))}
+                                            .then(() => this.props.history("/animals"))}
                             className="card-link">Delete</a>
                     </div>
                 </div>

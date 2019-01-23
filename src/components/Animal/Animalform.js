@@ -3,11 +3,16 @@ import "./Animal.css"
 
 export default class AnimalForm extends Component {
     // Set initial state
+
+
     state = {
         animalName: "",
         breed: "",
         employee: ""
     }
+
+    // this.constructNewAnimal = this.constructNewAnimal.bind(this)
+
 
     // Update state whenever an input field is edited
     handleFieldChange = evt => {
@@ -32,7 +37,8 @@ export default class AnimalForm extends Component {
             }
 
             // Create the animal and redirect user to animal list
-            this.props.addAnimal(animal).then(() => this.props.history.push("/animals"))
+            this.props.addAnimal(animal)
+            this.props.history.push("/animals")
         }
     }
 

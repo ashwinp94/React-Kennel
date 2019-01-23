@@ -19,18 +19,8 @@
   ],
   "animals": [
     {
-      "id": 1,
-      "name": "Dax",
-      "breed": "Golden Retreiver"
-    },
-    {
       "id": 2,
       "name": "Jack",
-      "breed": "Golden Retreiver"
-    },
-    {
-      "id": 3,
-      "name": "Angus",
       "breed": "Golden Retreiver"
     },
     {
@@ -47,14 +37,27 @@
       "id": 6,
       "name": "Cody",
       "breed": "Maltese Poodle"
+    },
+    {
+      "name": "Harry",
+      "breed": "Pitbull",
+      "employeeId": 2,
+      "id": 7
+    },
+    {
+      "name": "Dax",
+      "breed": "Golden Retreiver",
+      "employeeId": 1,
+      "id": 8
+    },
+    {
+      "name": "Harry",
+      "breed": "Pitbull",
+      "employeeId": 1,
+      "id": 9
     }
   ],
   "owners": [
-    {
-      "id": 1,
-      "name": "Jessica",
-      "phone": "111,111,1111"
-    },
     {
       "id": 2,
       "name": "Mark",

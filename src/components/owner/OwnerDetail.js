@@ -21,7 +21,7 @@ export default class OwnerDetail extends Component {
                         </h4>
                         <a href="#"
                             onClick={() => this.props.deleteOwner(owner.id)
-                                            .then(() => this.props.history.push("/owners"))}
+                            .then(() => this.props.history.push("/owners"))}
                             className="card-link">Delete</a>
                     </div>
                 </div>
