@@ -19,17 +19,6 @@
   ],
   "animals": [
     {
-      "id": 2,
-      "name": "Jack",
-      "breed": "Golden Retreiver"
-    },
-    {
-      "id": 4,
-      "name": "Henley",
-      "employeeId": 1,
-      "breed": "Golden Retreiver"
-    },
-    {
       "id": 5,
       "name": "Harry",
       "employeeId": 2,
@@ -61,30 +50,32 @@
     {
       "name": "Harry",
       "breed": "Pitbull",
-      "employeeId": 3,
-      "id": 12
+      "employeeId": 1,
+      "id": 13
     },
     {
       "name": "Harry",
       "breed": "Pitbull",
       "employeeId": 1,
-      "id": 13
+      "id": 15
+    },
+    {
+      "name": "Harry",
+      "breed": "Pitbull",
+      "employeeId": 1,
+      "id": 16
+    },
+    {
+      "name": "Harry",
+      "breed": "Pitbull",
+      "employeeId": 1,
+      "id": 17
     }
   ],
   "owners": [
     {
       "id": 1,
       "name": "Ashwin",
-      "phone": "111,111,1111"
-    },
-    {
-      "id": 2,
-      "name": "Mary",
-      "phone": "111,111,1111"
-    },
-    {
-      "id": 3,
-      "name": "justin",
       "phone": "111,111,1111"
     },
     {

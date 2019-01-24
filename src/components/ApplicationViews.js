@@ -8,7 +8,7 @@ import OwnerList from './owner/OwnersList';
 import AnimalList from './animal/AnimalList'
 import EmployeeList from './employee/EmployeeList'
 import LocationList from './location/LocationList'
-import AnimalForm from './animal/Animalform'
+import AnimalForm from './animal/AnimalForm'
 import Login from './authentication/Login'
 import AnimalManager from '../modules/AnimalManager'
 import EmployeeManager from '../modules/EmployeeManager'
@@ -20,15 +20,15 @@ import OwnerManager from '../modules/OwnerManager'
 
 
 export default class ApplicationViews extends Component {
-    isAuthenticated = () => sessionStorage.getItem("credentials") !== null
-
     state = {
 
         locations:[],
         animals: [],
         employees: [],
         owners: []
-        }
+    }
+    isAuthenticated = () => sessionStorage.getItem("credentials") !== null
+
         deleteAnimal = id => {
             return fetch(`http://localhost:5002/animals/${id}`, {
               method: "DELETE"
@@ -69,7 +69,7 @@ export default class ApplicationViews extends Component {
               );
           };
 
-          addAnimal = animal => {
+          addAnimal = animal =>
             AnimalManager.post(animal)
               .then(() => AnimalManager.getAll())
               .then(animals =>
@@ -77,7 +77,8 @@ export default class ApplicationViews extends Component {
                   animals: animals
                 })
               );
-            }
+
+
             componentDidMount() {
                 // Example code. Make this fit into how you have written yours.
                 AnimalManager.getAll().then(allAnimals => {
