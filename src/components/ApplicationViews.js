@@ -1,6 +1,5 @@
 import { Route, Redirect } from 'react-router-dom'
 import React, { Component } from "react"
-import APIManager from "../modules/AnimalManager"
 import AnimalDetail from './animal/AnimalDetail'
 import EmployeeDetail from './employee/EmployeeDetail'
 import OwnerDetail from './owner/OwnerDetail'
@@ -11,6 +10,10 @@ import EmployeeList from './employee/EmployeeList'
 import LocationList from './location/LocationList'
 import AnimalForm from './animal/Animalform'
 import Login from './authentication/Login'
+import AnimalManager from '../modules/AnimalManager'
+import EmployeeManager from '../modules/EmployeeManager'
+import LocationManager from '../modules/LocationManager'
+import OwnerManager from '../modules/OwnerManager'
 
 
 
@@ -26,6 +29,55 @@ export default class ApplicationViews extends Component {
         employees: [],
         owners: []
         }
+        deleteAnimal = id => {
+            return fetch(`http://localhost:5002/animals/${id}`, {
+              method: "DELETE"
+            })
+              .then(response => response.json())
+              .then(() => fetch(`http://localhost:5002/animals`))
+              .then(response => response.json())
+              .then(animals =>
+                this.setState({
+                  animals: animals
+                })
+              );
+          };
+          deleteOwner = id => {
+            return fetch(`http://localhost:5002/owners/${id}`, {
+              method: "DELETE"
+            })
+              .then(response => response.json())
+              .then(() => fetch(`http://localhost:5002/owners`))
+              .then(response => response.json())
+              .then(owners =>
+                this.setState({
+                  owners: owners
+                })
+              );
+          };
+          deleteEmployee = id => {
+            return fetch(`http://localhost:5002/employees/${id}`, {
+              method: "DELETE"
+            })
+              .then(response => response.json())
+              .then(() => fetch(`http://localhost:5002/employees`))
+              .then(response => response.json())
+              .then(employees =>
+                this.setState({
+                  employees: employees
+                })
+              );
+          };
+
+
+          addAnimal = animal =>
+            AnimalManager.post(animal)
+              .then(() => AnimalManager.getAll())
+              .then(animals =>
+                this.setState({
+                  animals: animals
+                })
+              );
             componentDidMount() {
                 // Example code. Make this fit into how you have written yours.
                 AnimalManager.getAll().then(allAnimals => {

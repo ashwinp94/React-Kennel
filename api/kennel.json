@@ -53,16 +53,11 @@
     {
       "name": "Harry",
       "breed": "Pitbull",
-      "employeeId": 1,
+      "employeeId": 3,
       "id": 9
     }
   ],
   "owners": [
-    {
-      "id": 2,
-      "name": "Mark",
-      "phone": "111,111,1111"
-    },
     {
       "id": 3,
       "name": "Dan",

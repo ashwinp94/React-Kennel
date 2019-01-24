@@ -2,18 +2,18 @@ const remoteURL = "http://localhost:5002";
 
 export default {
   get(id) {
-    return fetch(`${remoteURL}/animals/${id}`).then(e => e.json());
+    return fetch(`${remoteURL}/employees/${id}`).then(e => e.json());
   },
   getAll() {
-    return fetch(`${remoteURL}/animals`).then(e => e.json());
+    return fetch(`${remoteURL}/employees`).then(e => e.json());
   },
-  post(newAnimal) {
-    return fetch(`${remoteURL}/animals`, {
+  post(newEmployee) {
+    return fetch(`${remoteURL}/employees`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
       },
-      body: JSON.stringify(newAnimal)
+      body: JSON.stringify(newEmployee)
     }).then(data => data.json());
   }
 };
