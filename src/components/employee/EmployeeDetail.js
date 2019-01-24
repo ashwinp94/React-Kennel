@@ -1,5 +1,4 @@
 import React, { Component } from "react"
-import Redirect from "react-router-dom"
 
 export default class EmployeeDetail extends Component {
     render() {
@@ -15,7 +14,7 @@ export default class EmployeeDetail extends Component {
                         </h4>
                         <a href="#"
                             onClick={() => this.props.deleteEmployee(employee.id)
-                                            .then(() => this.props.Redirect("/employees"))}
+                                            .then(() => this.props.history.push("/employees"))}
                             className="card-link">Delete</a>
                     </div>
                 </div>

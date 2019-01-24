@@ -11,10 +11,6 @@
     {
       "id": 3,
       "name": "Paul LeBlanc"
-    },
-    {
-      "id": 4,
-      "name": "Blaise Roberts"
     }
   ],
   "animals": [
@@ -40,12 +36,6 @@
       "breed": "asasddsa",
       "employeeId": 2,
       "id": 10
-    },
-    {
-      "name": "Harry",
-      "breed": "Pitbull",
-      "employeeId": 1,
-      "id": 11
     },
     {
       "name": "Harry",

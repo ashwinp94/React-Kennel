@@ -18,6 +18,6 @@ export default class AnimalCard extends Component {
                     </h5>
                 </div>
             </div>
-        )
+        );
     }
 }
