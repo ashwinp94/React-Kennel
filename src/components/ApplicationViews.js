@@ -69,8 +69,7 @@ export default class ApplicationViews extends Component {
               );
           };
 
-
-          addAnimal = animal =>
+          addAnimal = animal => {
             AnimalManager.post(animal)
               .then(() => AnimalManager.getAll())
               .then(animals =>
@@ -78,6 +77,7 @@ export default class ApplicationViews extends Component {
                   animals: animals
                 })
               );
+            }
             componentDidMount() {
                 // Example code. Make this fit into how you have written yours.
                 AnimalManager.getAll().then(allAnimals => {
@@ -124,7 +124,8 @@ export default class ApplicationViews extends Component {
                 {/* owners */}
 
                 <Route exact path="/owners" render={(props) => {
-                    return <OwnerList owners={this.state.owners} />
+                    return <OwnerList owners={this.state.owners}
+                    deleteOwner={this.deleteOwner} />
                 }} />
                 <Route  path="/owners/:ownerId(\d+)" render={(props) => {
                     return <OwnerDetail {...props} deleteOwner={this.deleteOwner} owners={this.state.owners} />
@@ -135,7 +136,9 @@ export default class ApplicationViews extends Component {
                 <Route exact path="/employees" render={props => {
                     if (this.isAuthenticated()) {
                     return <EmployeeList deleteEmployee={this.deleteEmployee}
-                    employees={this.state.employees} />
+                                    employees={this.state.employees}
+                                        animals={this.state.animals}
+                                        deleteAnimal={this.state.deleteAnimal}/>
                         } else {
                             return <Redirect to="/login" />
                         }
