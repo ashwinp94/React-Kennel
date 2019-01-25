@@ -1,7 +1,6 @@
 import React, { Component } from "react"
 import "./Animal.css"
 import dog from "./DogIcon.png"
-import Redirect from "react-router-dom"
 
 
 export default class AnimalDetail extends Component {
