@@ -31,6 +31,8 @@ export default class ApplicationViews extends Component {
     }
     isAuthenticated = () => sessionStorage.getItem("credentials") !== null
 
+
+
         deleteAnimal = id => {
             return fetch(`http://localhost:5002/animals/${id}`, {
               method: "DELETE"
@@ -136,8 +138,15 @@ export default class ApplicationViews extends Component {
                 {/* locations */}
 
                 <Route exact path="/locations" render={(props) => {
-                    return <LocationList locations={this.state.locations} />
-                }} />
+                 if (this.isAuthenticated()) {
+
+                  return <LocationList locations={this.state.locations} />
+                  } else {
+
+                    return <Redirect to="/login" />
+                }
+                  }}/>
+
                 <Route  path="/locations/:locationId(\d+)" render={(props) => {
                     return (<LocationDetail {...props} locations={this.state.locations} />)
                 }} />
@@ -145,8 +154,14 @@ export default class ApplicationViews extends Component {
                 {/* owners */}
 
                 <Route exact path="/owners" render={(props) => {
+
+                  if (this.isAuthenticated()) {
                     return <OwnerList {...props}  owners={this.state.owners}
-                    deleteOwner={this.deleteOwner} />
+                                                  deleteOwner={this.deleteOwner} />
+                  } else {
+
+                   return <Redirect to="/login" />
+                  }
                 }} />
 
                 <Route path="/owners/new" render={(props) => {
@@ -182,8 +197,13 @@ export default class ApplicationViews extends Component {
                 {/* animals */}
 
                 <Route exact path="/animals" render={(props) => {
+                    if (this.isAuthenticated()) {
+
                     return <AnimalList {...props} animals={this.state.animals}
                                                   deleteAnimal={this.deleteAnimal} />
+                      } else {
+                        return <Redirect to="/login" />
+                    }
                 }} />
                 <Route path="/animals/new" render={(props) => {
                     return <AnimalForm {...props}   addAnimal={this.addAnimal}
